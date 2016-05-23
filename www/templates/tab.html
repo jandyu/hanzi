@@ -1,0 +1,63 @@
+<ion-view cache-view="false" view-title="{{tab.currtitle}}" hide-nav-bar="true">
+
+</ion-view>
+<ion-tabs class="tabs-icon-top tabs-color-active-positive">
+    <!-- calendar Tab -->
+    <ion-tab title="首页" icon-off="ion-ios-calendar-outline" icon-on="ion-ios-calendar" ng-click="clicktab(0)">
+
+        <ion-view view-title="Playlists" ng-controller="PlaylistCtrl" cache-view="false">
+            <div class="bar bar-stable bar-header">
+                <h1 class="title">首页</h1>
+            </div>
+            <ion-content>
+                <div class="item item-borderless" style="height: 44px;"></div>
+                <div ng-include="'templates/playlists1.html'"></div>
+            </ion-content>
+        </ion-view>
+    </ion-tab>
+    <!-- plan Tab -->
+    <ion-tab title="消息" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" ng-click="clicktab(1)">
+        <ion-view ng-controller="MsglistCtrl" cache-view="false">
+            <div class="bar bar-stable bar-header">
+                <h1 class="title">消息</h1>
+            </div>
+            <ion-content>
+                <div class="item item-borderless" style="height: 44px;"></div>
+                <div ng-include="'templates/message/msglist.html'"></div>
+            </ion-content>
+        </ion-view>
+    </ion-tab>
+
+    <!-- message Tab -->
+    <ion-tab title="论坛" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" ng-click="clicktab(2)">
+        <ion-view ng-controller="forumCtrl" cache-view="false"">
+
+        <div class="bar bar-stable bar-header">
+            <h1 class="title">论坛</h1>
+            <button class="button">建议</button>
+        </div>
+        <div class="tabs tabs-striped tabs-top tabs-light">
+            <a class="tab-item dark" ng-repeat="topic in topics" ng-bind="topic.title" ng-click="forumtopic(topic.id)" ng-class="{'active':model.currtopic==$index}">
+            </a>
+        </div>
+        <ion-content>
+
+            <div class="item item-borderless" style="height: 44px;"></div>
+            <ion-refresher pulling-text="refresh" on-refresh="loadMore()" ></ion-refresher>
+            <div ng-include="'templates/message/forum.html'"></div>
+        </ion-content>
+        </ion-view>
+    </ion-tab>
+    <!-- message Tab -->
+    <ion-tab title="我的" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" ng-click="clicktab(3)">
+        <ion-view ng-controller="SelfCtrl" cache-view="false">
+            <div class="bar bar-stable bar-header">
+                <h1 class="title">我的</h1>
+            </div>
+            <ion-content>
+                <div ng-include="'templates/playlists3.html'"></div>
+            </ion-content>
+        </ion-view>
+    </ion-tab>
+
+</ion-tabs>

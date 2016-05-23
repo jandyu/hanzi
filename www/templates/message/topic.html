@@ -1,0 +1,52 @@
+
+<ion-view view-title="{{user.fullname}}">
+    <ion-content class="accordant-stable-content" delegate-handle="messageDetailsScroll" id="message-detail-content">
+
+
+        <ion-list>
+                <div class="item item-avatar">
+                    <img src="http://ionicframework.com/img/docs/mcfly.jpg">
+
+                    <h2>Marty McFly</h2>
+
+                    <p>November 05, 1955</p>
+                </div>
+
+                <div class="item item-body">
+                    <p>
+                        This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
+                        the content is from a card-body consisting of an image and paragraph text. The footer
+                        consists of tabs, icons aligned left, within the card-footer.
+                    </p>
+                </div>
+
+
+        <div class="item-divider"></div>
+        <div class="item">评论</div>
+
+            <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats " type="item-text-wrap"
+                      href="#/app/message/{{chat.user._id}}">
+                <img ng-src="{{chat.user.photo}}">
+                <p>{{chat.user.fullname}}</p>
+                <h2>{{chat.lastwords}}</h2>
+
+
+            </ion-item>
+        </ion-list>
+    </ion-content>
+    <ion-footer-bar align-title="left" class="bar-light" resize-foot-bar keyboard-attach>
+        <button class="button icon ion-ios-plus-outline" ng-click="takephoto()"></button>
+
+        <label class="item item-input accordant-footer-input">
+
+            <textarea msd-elastic ng-model="send_content" placeholder="Enter text here..."></textarea>
+        </label>
+        <div class="accordant-footer-btn-wrap">
+
+            <div class="accordant-send-button" >
+                <p ng-click="sendmsg(send_content)">Send</p>
+            </div>
+        </div>
+    </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,11 @@
+
+<ion-view view-title="Playlists" ng-controller="PlaylistsCtrl4">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+       4 {{playlist.title}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
+

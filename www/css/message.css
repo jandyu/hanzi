@@ -1,0 +1,137 @@
+
+/*
+*--------------------------------------------------------------------------
+*message style
+*/
+
+.accordant-stable-content {
+    background-color: #EEE;
+}
+
+.accordant-message-time{
+    width: 130px;
+    text-align: center;
+    margin-bottom: 5px;
+    color: #FFF;
+    background-color: rgba(0,0,0,.2);
+    font-size: 12px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.accordant-message-wrap{
+    padding: 7px;
+    overflow: auto;
+    position: relative;
+}
+
+.accordant-message-wrap .accordant-head-pic,
+.accordant-message-wrap .accordant-head-pic-right{
+    max-height: 40px;
+    max-width: 40px;
+}
+.accordant-message-wrap .accordant-head-pic{
+    float: left;
+}
+
+.accordant-message-wrap .accordant-head-pic-right{
+    float: right;
+}
+
+
+.accordant-message-wrap .accordant-message,
+.accordant-message-wrap .accordant-message-right{
+    padding: 5px 4px;
+    line-height: 26px;
+    max-width: 75%;
+    border-radius: 5px;
+}
+.accordant-message-wrap .accordant-message{
+    float: left;
+    margin-left: 16px;
+    background-color: #fff;
+
+}
+
+.accordant-message-wrap .accordant-message-right{
+    float: right;
+    margin-right: 16px;
+    background-color: #6BE00B;
+
+}
+
+img.accordant-message-right {
+   width:120px;
+}
+
+.accordant-message-wrap .accordant-triangle-left,
+.accordant-message-wrap .accordant-triangle-right{
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-width:8px 10px;
+    border-style: solid;
+    top:17px;
+}
+
+.accordant-message-wrap .accordant-triangle-left{
+    left: 47px;
+    border-color: transparent #FFF transparent transparent;
+}
+
+.accordant-message-wrap .accordant-triangle-right{
+    right: 47px;
+    border-color: transparent transparent transparent #6BE00B;
+}
+
+
+.accordant-footer-input{
+    width: 100%;
+}
+
+
+.accordant-footer-btn-wrap {
+    position: relative;
+    height: 100%;
+    width: 50px;
+    top: 2px;
+}
+
+
+.accordant-footer-btn-wrap .accordant-send-button{
+    background-color: rgb(255,255,255);
+    color: #000;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    position: absolute;
+    bottom: 3px;
+    width: 38px;
+    left: 4px;
+}
+
+.bar-footer {
+    border-top: 1px solid #EEE !important;
+}
+
+.bar-footer textarea {
+    resize: none;
+    height: 21px;
+    max-height: 100px;
+}
+
+.bar-footer .item-input {
+    border: none !important;
+    border-bottom: 1px solid #EEE !important;
+}
+
+.forum-nav > .active{
+    border-bottom: 2px solid blue;
+}
+
+
+.forum-nav{
+    background-color: white;
+}
