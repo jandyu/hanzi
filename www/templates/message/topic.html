@@ -34,19 +34,9 @@
             </ion-item>
         </ion-list>
     </ion-content>
-    <ion-footer-bar align-title="left" class="bar-light" resize-foot-bar keyboard-attach>
-        <button class="button icon ion-ios-plus-outline" ng-click="takephoto()"></button>
+    <div class="bar bar-footer bar-stable">
+        <div forum-feedback class="title" save-method="savemsg(m)">评 论</div>
+    </div>
 
-        <label class="item item-input accordant-footer-input">
-
-            <textarea msd-elastic ng-model="send_content" placeholder="Enter text here..."></textarea>
-        </label>
-        <div class="accordant-footer-btn-wrap">
-
-            <div class="accordant-send-button" >
-                <p ng-click="sendmsg(send_content)">Send</p>
-            </div>
-        </div>
-    </ion-footer-bar>
 
 </ion-view>

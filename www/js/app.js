@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','message'])
+angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmessage'])
 
     .filter('to_emotion', function ($sce,MessageFunc) {
         return function (text) {
@@ -13,9 +13,6 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','messa
         }
     })
     .run(function ($ionicPlatform) {
-
-
-
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -27,22 +24,8 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','messa
             if (window.StatusBar) {
                 // org.apache.cordova.statusbar required
                 StatusBar.styleDefault();
+
             }
-
-            if (xingePlugin) {
-                xingePlugin.config("2200195570", "IU8413Q5CTRI", function (succ) {
-                    console.info("config" + succ);
-                }, function (err) {
-                    console.info("config err" + err);
-                });
-                xingePlugin.registerDevice(function (succ) {
-                    console.info("register succ" + succ);
-                }, function (err) {
-                    console.info("register err" + err);
-                });
-            }
-
-
         });
     })
 

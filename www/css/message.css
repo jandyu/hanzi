@@ -95,7 +95,7 @@ img.accordant-message-right {
 .accordant-footer-btn-wrap {
     position: relative;
     height: 100%;
-    width: 50px;
+    width: 60px;
     top: 2px;
 }
 
@@ -125,6 +125,11 @@ img.accordant-message-right {
 .bar-footer .item-input {
     border: none !important;
     border-bottom: 1px solid #EEE !important;
+}
+
+
+.sendemotion{
+    height:250px;
 }
 
 .forum-nav > .active{

@@ -39,7 +39,8 @@ angular.module('starter.controllers', [])
     .controller('MessageCtrl', function ($scope, $stateParams, $ionicScrollDelegate, $timeout, NativePlugin,MessageFunc,Session) {
         $scope.user = $stateParams["user"];
         $scope.chat = [];
-        $scope.send_content = "";
+
+
         $scope.currstamp = 0;
         $scope.loadMore = function (currstamp) {
             $scope.$broadcast('scroll.refreshComplete');
@@ -60,6 +61,7 @@ angular.module('starter.controllers', [])
 
         $scope.takephoto = function () {
             console.info("take photo");
+            $scope.sendmsg.emotion=false;
             NativePlugin.GetPicture(function (pic) {
 
                     $scope.user.photo = NativePlugin.PictureModel.image_url;
@@ -89,11 +91,26 @@ angular.module('starter.controllers', [])
         }
 
 
-        $scope.sendmsg = function(msg){
+        $scope.savemsg = function(msg){
+            $scope.sendmsg.emotion=false;
             MessageFunc.SendMsg(Session.user,$scope.user,msg,"text").then(function(res){
                 $scope.loadMore($scope.currstamp);
             });
+            $scope.sendmsg.content ="";
 
+
+        }
+
+        $scope.emotions = MessageFunc.ShowEmotionIcon("list");
+        $scope.showEmotion = function(){
+            console.info($scope.emotions);
+            $scope.sendmsg.emotion = true;
+        }
+        $scope.sendmsg = {emotion:false,content:""};
+
+        $scope.appendemo = function(emo){
+            $scope.sendmsg.content = $scope.sendmsg.content + "["+emo+"]";
+            $scope.sendmsg.emotion = false;
         }
 
         $scope.loadMore($scope.currstamp);
@@ -164,6 +181,16 @@ angular.module('starter.controllers', [])
                 $scope.$broadcast('scroll.refreshComplete');
             }, 1000);
         }
+
+
+        $scope.savemsg = function(msg){
+
+            console.info("save");
+            console.info(msg);
+
+        }
+
+
     })
 
 
