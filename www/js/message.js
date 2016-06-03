@@ -5,13 +5,11 @@
 angular.module('KTmessage', ['ngResource'])
     .factory("srvRESTfulAPI", function ($resource) {
         var defaultOption = {
-            dbName: "pilatus",
+            dbName: "MC",
             collectionName: "",
             modelName: "",
-            //urlBase: "http://localhost:3001"
+            urlBase: "http://localhost:3001"
             //urlBase: "http://192.168.1.55:3001"
-            urlBase: "https://gce.accordantcare.com:3001"
-            // urlBase: "https://www.pilatushealth.com:3001"
 
         }
         var modelObj = {
@@ -235,10 +233,10 @@ angular.module('KTmessage', ['ngResource'])
                     "右太极": "face qqface104"
 
                 };
-                if(source == "list"){
-                    var ar=[];
-                    _.each(emotion,function(val,key){
-                        ar.push({title:key,cls:val});
+                if (source == "list") {
+                    var ar = [];
+                    _.each(emotion, function (val, key) {
+                        ar.push({title: key, cls: val});
                     })
                     return ar;
                 }
@@ -327,6 +325,79 @@ angular.module('KTmessage', ['ngResource'])
         };
         return sessiondata;
     })
+    .factory("MCenter", function (srvRESTfulAPI,Session) {
+        return srvRESTfulAPI.createModel({collectionName: "mc", modelName: "mc"}, {
+            userChats: {method: "GET", url: "/userchats/:uid", isArray: false},
+            sendMessage: {method: "POST", url: "/send/:chatid", isArray: false}
+        });
+    })
+
+    .factory("MessageContainer", function (MCenter) {
+        var MCData = {
+            UserChats: [],
+            ChatContents: []
+        };
+        var clientFunc = {
+            UserMCData: function () {
+                return MCData;
+            },
+            reload: function (userId) {
+                //load ChatUsers
+                MCenter.userChats({"uid": userId},function (res) {
+                    console.info(res);
+                    if(res.ok==1) {
+                        MCData.UserChats = res.chats;
+                    }
+                });
+            },
+            WhichUserChat: function (chatId) {
+                return _.find(MCData.UserChats, function (item) {
+                    return item.chatId == chatId;
+                });
+            },
+            WhichChatContent: function (chatId) {
+                return _.find(MCData.ChatContents, function (item) {
+                    return item.chatId == chatId;
+                });
+            },
+
+            onMessage: function (msg) {
+                //after received message from push
+                //push_msg = {chatId :1 , content:'Jack:hello.',type:'text',stamp:0}
+                //charId =  dest._id
+
+                var userChat = clientFunc.WhichUserChat(msg.chatId);
+                userChat.avatar.lastword = msg.content;
+                userChat.avatar.badge = msg.badge;
+                userChat.chat.laststamp = msg.stamp;
+            },
+
+            sendMessage: function (chatId, msg) {
+
+                MCenter.sendMessage({chatid:chatId,msg:msg},function(res){
+                //after send to srv
+                var userChat = clientFunc.WhichUserChat(chatId);
+                userChat.avatar.lastword = msg.content;
+                userChat.avatar.badge = msg.badge;
+                userChat.chat.laststamp = msg.stamp;
+
+
+                //
+                var chatContent = clientFunc.WhichChatContent(chatId);
+                chatContent.push(msg);
+                });
+
+            },
+            readMessage: function (chats, dest, msg) {
+                //after checked message
+                var chat = clientFunc.destOfChat(chats, dest._id);
+                chat.local = msg.timstamp;
+            }
+        }
+
+        return {};
+    })
+
     .directive('forumFeedback', function () {
         return {
             require: ['forumFeedback'],
@@ -337,10 +408,10 @@ angular.module('KTmessage', ['ngResource'])
                 saveMethod: '&'
             },
             controllerAs: 'viewModel',
-            controller: function ($scope, $ionicModal,MessageFunc,NativePlugin) {
+            controller: function ($scope, $ionicModal, MessageFunc, NativePlugin) {
                 var controller = this;
 
-                $scope.msg = {content: "123", type: "text",emotion:false};
+                $scope.msg = {content: "123", type: "text", emotion: false};
 
                 $scope.emotions = MessageFunc.ShowEmotionIcon("list");
                 //define modal
@@ -362,11 +433,11 @@ angular.module('KTmessage', ['ngResource'])
                         '           <button class="button  button-icon icon ion-happy-outline"  ng-click="msg.emotion=true"></button>',
                         '           <a class="button button-icon icon ion-ios-camera-outline" ng-click="takephoto()"></a>',
                         '        </div>',
-                                '<div class="item item-body" ng-class="{\'hide\':!msg.emotion}">',
-                                    '<div class=" qq_face" >',
-                                        '<a ng-repeat="em in emotions" title="{{em.title}}" ng-class="em.cls" ng-click="appendemo(em.title)">{{em.title}}</a>',
-                                     '</div>',
-                                '</div>',
+                        '<div class="item item-body" ng-class="{\'hide\':!msg.emotion}">',
+                        '<div class=" qq_face" >',
+                        '<a ng-repeat="em in emotions" title="{{em.title}}" ng-class="em.cls" ng-click="appendemo(em.title)">{{em.title}}</a>',
+                        '</div>',
+                        '</div>',
                         '    </ion-content>',
                         '</ion-modal-view>'
                     ].join(''), {
@@ -374,9 +445,9 @@ angular.module('KTmessage', ['ngResource'])
                         animation: 'slide-in-up'
                     });
 
-                $scope.takephoto = function(){
+                $scope.takephoto = function () {
                     console.info("take photo");
-                    $scope.msg.emotion=false;
+                    $scope.msg.emotion = false;
                     NativePlugin.GetPicture(function (pic) {
 
                             //$scope.user.photo = NativePlugin.PictureModel.image_url;
@@ -404,9 +475,9 @@ angular.module('KTmessage', ['ngResource'])
                             console.log(JSON.stringify(rtn));
                         }, {});
                 }
-                $scope.appendemo = function(emo){
+                $scope.appendemo = function (emo) {
                     console.info(emo);
-                    $scope.msg.content = $scope.msg.content + "["+emo+"]";
+                    $scope.msg.content = $scope.msg.content + "[" + emo + "]";
                     $scope.msg.emotion = false;
                 }
                 $scope.save = function (msg) {

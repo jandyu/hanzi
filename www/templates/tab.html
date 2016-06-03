@@ -16,7 +16,7 @@
         </ion-view>
     </ion-tab>
     <!-- plan Tab -->
-    <ion-tab title="消息" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" ng-click="clicktab(1)">
+    <ion-tab title="消息" icon-off="ion-ios-list-outline" icon-on="ion-ios-list" ng-click="clicktab(1)" badge="1" badge-style="badge-assertive">
         <ion-view ng-controller="MsglistCtrl" cache-view="false">
             <div class="bar bar-stable bar-header">
                 <h1 class="title">消息</h1>
@@ -28,7 +28,7 @@
     </ion-tab>
 
     <!-- message Tab -->
-    <ion-tab title="论坛" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" ng-click="clicktab(2)">
+    <ion-tab title="论坛" icon-off="ion-ios-chatboxes-outline" icon-on="ion-ios-chatboxes" ng-click="clicktab(2)" badge="99" badge-style="badge-assertive">
         <ion-view ng-controller="forumCtrl" cache-view="false"">
 
         <div class="bar bar-stable bar-header">

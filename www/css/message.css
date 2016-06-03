@@ -140,3 +140,12 @@ img.accordant-message-right {
 .forum-nav{
     background-color: white;
 }
+
+
+.item-content > span.message-badge{
+    right:inherit;
+    left:44px;
+    top:6px;
+    padding: 1px 5px;
+    font-size: 12px;
+}

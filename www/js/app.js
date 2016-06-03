@@ -12,7 +12,7 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
             return $sce.trustAsHtml(txt);
         }
     })
-    .run(function ($ionicPlatform) {
+    .run(function ($ionicPlatform,MessageContainer,$rootScope) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -26,13 +26,18 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
                 StatusBar.styleDefault();
 
             }
+
+            //MessageCenter
+
+            MessageContainer.reload("");
+            $rootScope.MC = MessageContainer.UserMCData();
         });
+
     })
 
     .config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
         $ionicConfigProvider.platform.android.tabs.style("standard");
         $ionicConfigProvider.platform.android.tabs.position("standard");
-
 
         $stateProvider
             .state('app', {
