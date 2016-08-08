@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmessage'])
+angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmessage','KTUserRegLogin'])
 
     .filter('to_emotion', function ($sce,MessageFunc) {
         return function (text) {
@@ -16,6 +16,11 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
+
+            console.info("app onready");
+
+
+
             if (window.cordova && window.cordova.plugins.Keyboard) {
                 cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
                 cordova.plugins.Keyboard.disableScroll(true);
@@ -45,6 +50,34 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
                 abstract: true,
                 templateUrl: 'templates/menu.html',
                 controller: 'AppCtrl'
+            })
+
+            .state('app.login',{
+                url: '/login',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/login.html',
+                        controller:"KTUserLogin"
+                    }
+                }
+            })
+            .state('app.register',{
+                url: '/register',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/register.html',
+                        controller:"KTUserRegister"
+                    }
+                }
+            })
+            .state('app.forgot',{
+                url: '/forgot',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/forgot.html',
+                        controller:"KTUserForgot"
+                    }
+                }
             })
             .state('app.tab', {
                 url: '/tab',
@@ -87,5 +120,5 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
             })
         ;
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/tab');
+        $urlRouterProvider.otherwise('/app/login');
     });

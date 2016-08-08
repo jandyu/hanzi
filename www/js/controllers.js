@@ -29,7 +29,7 @@ angular.module('starter.controllers', [])
 
     .controller('MsglistCtrl', function ($state,$scope, $stateParams,MessageFunc,Session) {
         MessageFunc.GetChats(Session.user).then(function(res){
-             $scope.chats = res;
+            $scope.chats = res;
         });
         $scope.message = function(user){
             $state.go("app.message",{user:user});
@@ -54,7 +54,7 @@ angular.module('starter.controllers', [])
 
             console.info($scope.currstamp);
             $timeout(function () {
-                    $ionicScrollDelegate.$getByHandle("messageDetailsScroll").scrollBottom(true);
+                $ionicScrollDelegate.$getByHandle("messageDetailsScroll").scrollBottom(true);
             }, 1);
         }
 

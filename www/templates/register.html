@@ -1,0 +1,47 @@
+<ion-view cache-view="false" view-title="用户注册">
+  <ion-content>
+    <form>
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">用户:</span>
+          <input type="text" ng-model="model.user.account">
+        </label>
+        <ion-item class="item-input item-button-right">
+          <span class="input-label">验证码</span>
+          <input type="text" ng-model="model.user.verify">
+          <button class="button button-positive" type="button" ng-click="getCode(model.user.account)">获取</button>
+        </ion-item>
+
+        <label class="item item-input">
+          <span class="input-label">用户密码:</span>
+          <input type="password" ng-model="model.user.pwd">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">确认密码:</span>
+          <input type="password" ng-model="model.user.pwd1">
+        </label>
+        <label class="item item-input item-select"><span class="input-label">小区:</span>
+          <select ng-model="model.user.com" >
+            <option  ng-repeat="comm in model.communities" value="{{comm.id}}" ng-bind="comm.title"></option>
+          </select>
+        </label>
+        <label class="item item-input"><span class="input-label">设备:</span>
+          <input type="text" ng-model="model.user.dev" readonly>
+        </label>
+        <label class="item item-input"><span class="input-label">app:</span>
+          <input type="text" ng-model="model.user.app" readonly>
+        </label>
+        <label class="item text-center">
+          <label ng-bind="model.info"></label>
+        </label>
+
+        <label class="item item-borderless">
+          <button class="button button-block button-positive" type="button" ng-click="register(model.user)">register</button>
+        </label>
+        <label class="item item-borderless">
+          <button class="button button-block button-positive" type="button" ng-click="logindev(model.user)">login with device</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-view>

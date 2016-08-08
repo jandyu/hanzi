@@ -8,8 +8,8 @@ angular.module('KTmessage', ['ngResource'])
             dbName: "MC",
             collectionName: "",
             modelName: "",
-            urlBase: "http://localhost:3001"
-            //urlBase: "http://192.168.1.55:3001"
+            //urlBase: "http://localhost:3000"
+            urlBase: "http://dev.wy.zjy8.cn:3001"
 
         }
         var modelObj = {
@@ -395,7 +395,7 @@ angular.module('KTmessage', ['ngResource'])
             }
         }
 
-        return {};
+        return clientFunc;
     })
 
     .directive('forumFeedback', function () {
