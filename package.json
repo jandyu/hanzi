@@ -19,14 +19,14 @@
     "cordova-plugin-console",
     "cordova-plugin-statusbar",
     "ionic-plugin-keyboard",
+    "cordova-plugin-file",
     {
       "variables": {
-        "API_KEY": "2dd377ae8907a07e5ccc3009"
+        "API_KEY": "c91435b711c4e2792c31fdeb"
       },
       "locator": "jpush-phonegap-plugin",
-      "id": "cn.jpush.phonegap.JPushPlugin"
-    },
-    "cordova-plugin-file"
+      "id": "jpush-phonegap-plugin"
+    }
   ],
   "cordovaPlatforms": [
     "ios"

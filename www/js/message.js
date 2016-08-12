@@ -517,4 +517,17 @@ angular.module('KTmessage', ['ngResource'])
 
             }
         };
-    });
+    })
+
+    .factory("loginAction",function(srvRESTfulAPI,$resource){
+        var url = srvRESTfulAPI.config.urlBase;
+        return $resource(url + '/auth/:action',
+            { action: '@action'},
+            {doAction:{method:'POST',isArray:false},
+                getCommunities:{method:'POST',isArray:true}}
+        );
+    })
+    .factory("messageHelper", function ($q,loginAction) {
+        return {}
+    })
+;
