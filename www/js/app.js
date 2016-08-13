@@ -6,13 +6,13 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmessage','KTUserRegLogin'])
 
-    .filter('to_emotion', function ($sce,MessageFunc) {
+    .filter('to_emotion', function ($sce,messageHelper) {
         return function (text) {
-            var txt = MessageFunc.ShowEmotionIcon(text);
+            var txt = messageHelper.ShowEmotionIcon(text);
             return $sce.trustAsHtml(txt);
         }
     })
-    .run(function ($ionicPlatform,MessageContainer,$rootScope) {
+    .run(function ($ionicPlatform,messageHelper,$rootScope) {
         $ionicPlatform.ready(function () {
             // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             // for form inputs)
@@ -34,12 +34,14 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
 
             //MessageCenter
 
-            MessageContainer.reload("");
-            $rootScope.MC = MessageContainer.UserMCData();
+            //messageHelper.reload("");
+            $rootScope.MC = messageHelper.getLocalChatInfo();
         });
 
     })
-
+    .config(['$httpProvider', function ($httpProvider) {
+        $httpProvider.interceptors.push('sessionInjector');
+    }])
     .config(function ($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
         $ionicConfigProvider.platform.android.tabs.style("standard");
         $ionicConfigProvider.platform.android.tabs.position("standard");
@@ -99,13 +101,12 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
                 }
             })
             .state('app.message', {
-                url: '/message',
+                url: '/message/:chatid',
                 cache:false,
-                params:{user:{}},
                 views: {
                     'menuContent': {
                         templateUrl: 'templates/message/message.html',
-                        controller: 'MessageCtrl'
+                        controller: 'KTChatMessageCtrl'
                     }
                 }
             })
@@ -120,5 +121,5 @@ angular.module('starter', ['ionic', 'starter.controllers','nativePlugins','KTmes
             })
         ;
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/app/login');
+        $urlRouterProvider.otherwise('/app/tab');
     });

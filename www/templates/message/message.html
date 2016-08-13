@@ -3,18 +3,18 @@
 
         <ion-refresher pulling-text="..." on-refresh="loadMore()" pulling-icon=""></ion-refresher>
 
-        <div ng-repeat="item in chat | orderBy:'timestamp'">
-            <p class="accordant-message-time" ng-bind="item.timestamp | date : 'yyyy-MM-dd hh:mm:ss'" ng-if="true"></p>
+        <div ng-repeat="item in chatContent() | orderBy:'timeStamp'">
+            <p class="accordant-message-time" ng-bind="item.timeStamp | date : 'yyyy-MM-dd HH:mm:ss'" ng-if="true"></p>
 
-            <div class="accordant-message-wrap" ng-if="!item.isFromMe">
-                <img ng-src="{{item.from.photo }}" class="accordant-head-pic">
+            <div class="accordant-message-wrap" ng-if="item.from.u!=selfId">
+                <img ng-src="{{item.from.p}}" class="accordant-head-pic">
                 <span class="accordant-triangle-left"></span>
 
                 <p class="accordant-message qq_face" ng-bind-html="item.content | to_emotion" ng-if="item.type=='text'"></p>
                 <img class="accordant-message-right" ng-src="{{item.content}}" ng-if="item.type=='img'">
             </div>
-            <div class="accordant-message-wrap" ng-if="item.isFromMe">
-                <img ng-src="{{item.from.photo }}" class="accordant-head-pic-right">
+            <div class="accordant-message-wrap" ng-if="item.from.u==selfId">
+                <img ng-src="{{item.from.p }}" class="accordant-head-pic-right">
                 <span class="accordant-triangle-right"></span>
 
                 <p class="accordant-message-right qq_face" ng-bind-html="item.content | to_emotion" ng-if="item.type=='text'"></p>
@@ -30,12 +30,12 @@
         <button class="button icon qq_face" ng-click="showEmotion()"><a title="微笑" class="face qqface0">微笑</a></button>
         <button class="button icon ion-ios-plus-outline" ng-click="takephoto()"></button>
         <label class="item item-input accordant-footer-input">
-            <textarea msd-elastic ng-model="sendmsg.content" placeholder="Enter text here..." ng-focus="sendmsg.emotion=false"></textarea>
+            <textarea msd-elastic ng-model="sendmsg.content" placeholder="Enter text here..." ng-focus="sendmsg.emotion==false"></textarea>
         </label>
 
         <div class="accordant-footer-btn-wrap">
             <div class="accordant-send-button">
-                <p ng-click="savemsg(sendmsg.content)">Send</p>
+                <p ng-click="savemsg(sendmsg)">Send</p>
             </div>
         </div>
             </div>
